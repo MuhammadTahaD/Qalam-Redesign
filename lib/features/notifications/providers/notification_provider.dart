@@ -1,3 +1,6 @@
+/// File: lib/features/notifications/providers/notification_provider.dart
+/// Purpose: Riverpod provider managing notifications with pagination and read status.
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/models/notification_model.dart';

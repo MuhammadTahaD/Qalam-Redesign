@@ -1,3 +1,6 @@
+/// File: lib/features/auth/screens/login_screen.dart
+/// Purpose: User login interface with email and password fields.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -35,7 +38,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Student Portal',
+                'Qalam',
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 24),
@@ -65,7 +68,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           final ok = await ref
                               .read(authProvider.notifier)
                               .login(_email.text.trim(), _password.text.trim());
-                          if (!mounted) return;
+                          if (!context.mounted) {
+                            return;
+                          }
                           if (!ok) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(

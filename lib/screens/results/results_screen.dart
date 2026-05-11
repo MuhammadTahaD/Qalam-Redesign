@@ -1,3 +1,6 @@
+// File: lib/screens/results/results_screen.dart
+// Purpose: Results overview with GPA cards, trend chart, and course grades.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,6 +14,12 @@ import '../../widgets/section_title.dart';
 
 class ResultsScreen extends ConsumerWidget {
   const ResultsScreen({super.key});
+
+  Color _gpaColor(double gpa) {
+    if (gpa >= 3.5) return AppColors.success;
+    if (gpa >= 2.5) return AppColors.warning;
+    return AppColors.danger;
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,8 +38,8 @@ class ResultsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 6),
             const Text(
-              'Track your academic performance',
-              style: TextStyle(color: Colors.grey),
+              'Spring 2026 · Semester 4',
+              style: TextStyle(color: AppColors.textSecondary),
             ),
             const SizedBox(height: 20),
             resultsAsync.when(
@@ -39,18 +48,26 @@ class ResultsScreen extends ConsumerWidget {
                     ? 0.0
                     : items.map((e) => e.gpa).reduce((a, b) => a + b) /
                           items.length;
-                final semester = items.isEmpty
+                final sgpa = items.isEmpty
                     ? 0.0
                     : items.take(3).map((e) => e.gpa).reduce((a, b) => a + b) /
                           items.take(3).length;
                 return Row(
                   children: [
                     Expanded(
-                      child: GpaCard(title: 'CGPA', value: cgpa),
+                      child: GpaCard(
+                        title: 'CGPA',
+                        value: cgpa,
+                        valueColor: _gpaColor(cgpa),
+                      ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: GpaCard(title: 'Semester GPA', value: semester),
+                      child: GpaCard(
+                        title: 'Semester GPA',
+                        value: sgpa,
+                        valueColor: _gpaColor(sgpa),
+                      ),
                     ),
                   ],
                 );
@@ -78,20 +95,18 @@ class ResultsScreen extends ConsumerWidget {
             Expanded(
               child: resultsAsync.when(
                 data: (items) {
-                  if (items.isEmpty)
+                  if (items.isEmpty) {
                     return const Center(child: Text('No results available'));
-                  return RefreshIndicator(
-                    onRefresh: () async => ref.invalidate(resultsProvider),
-                    child: ListView(
-                      children: items
-                          .map(
-                            (item) => GradeTile(
-                              course: item.courseName,
-                              grade: item.grade,
-                            ),
-                          )
-                          .toList(),
-                    ),
+                  }
+                  return ListView(
+                    children: items
+                        .map(
+                          (item) => GradeTile(
+                            course: item.courseName,
+                            grade: item.grade,
+                          ),
+                        )
+                        .toList(),
                   );
                 },
                 loading: () => const Center(child: CircularProgressIndicator()),

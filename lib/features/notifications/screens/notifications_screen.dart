@@ -1,3 +1,6 @@
+/// File: lib/features/notifications/screens/notifications_screen.dart
+/// Purpose: Screen displaying paginated list of user notifications.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

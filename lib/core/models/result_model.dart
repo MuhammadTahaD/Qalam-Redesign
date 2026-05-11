@@ -1,3 +1,6 @@
+/// File: lib/core/models/result_model.dart
+/// Purpose: Data model for academic results and GPA.
+
 class ResultModel {
   final String id;
   final String courseName;

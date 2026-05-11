@@ -1,3 +1,6 @@
+/// File: lib/core/models/notification_model.dart
+/// Purpose: Data model for notifications with timestamp and read status.
+
 class NotificationModel {
   final String id;
   final String title;

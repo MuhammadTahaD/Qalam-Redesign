@@ -1,3 +1,6 @@
+/// File: lib/widgets/section_title.dart
+/// Purpose: Text widget for section headings with customizable styling.
+
 import 'package:flutter/material.dart';
 
 class SectionTitle extends StatelessWidget {

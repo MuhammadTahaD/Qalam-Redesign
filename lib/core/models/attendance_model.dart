@@ -1,3 +1,6 @@
+// File: lib/core/models/attendance_model.dart
+/* Purpose: Data model for attendance with JSON deserialization.*/
+
 class AttendanceModel {
   final String id;
   final String courseName;

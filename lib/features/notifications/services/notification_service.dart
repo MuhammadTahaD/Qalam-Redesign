@@ -1,3 +1,6 @@
+/// File: lib/features/notifications/services/notification_service.dart
+/// Purpose: Service for fetching notifications and marking as read.
+
 import '../../../core/services/api_service.dart';
 
 class NotificationService {

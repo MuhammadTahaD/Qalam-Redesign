@@ -1,3 +1,6 @@
+/// File: lib/widgets/course_tile.dart
+/// Purpose: List tile displaying course name and instructor information.
+
 import 'package:flutter/material.dart';
 import '../utils/app_theme.dart';
 

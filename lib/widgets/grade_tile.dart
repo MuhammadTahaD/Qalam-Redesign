@@ -1,3 +1,6 @@
+/// File: lib/widgets/grade_tile.dart
+/// Purpose: Tile showing course name and grade with navigation to course details.
+
 import 'package:flutter/material.dart';
 import '../utils/app_theme.dart';
 import '../screens/course/course_detail_screen.dart';

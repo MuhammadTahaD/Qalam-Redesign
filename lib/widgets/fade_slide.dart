@@ -1,3 +1,6 @@
+/// File: lib/widgets/fade_slide.dart
+/// Purpose: Animation widget applying fade and slide transitions with configurable delay.
+
 import 'package:flutter/material.dart';
 
 class FadeSlide extends StatelessWidget {

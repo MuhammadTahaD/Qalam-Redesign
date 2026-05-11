@@ -1,3 +1,6 @@
+/// File: lib/widgets/custom_card.dart
+/// Purpose: Reusable card container with shadow and border radius styling.
+
 import 'package:flutter/material.dart';
 import '../utils/app_theme.dart';
 

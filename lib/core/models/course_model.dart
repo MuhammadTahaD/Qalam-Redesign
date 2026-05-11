@@ -1,3 +1,6 @@
+/// File: lib/core/models/course_model.dart
+/// Purpose: Data model for course information.
+
 class CourseModel {
   final String id;
   final String name;

@@ -1,3 +1,7 @@
+/// File: lib/core/services/api_service.dart
+/// Purpose: HTTP client service handling API requests with JWT token management.
+
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -56,16 +60,26 @@ class ApiService {
   }
 
   Future<dynamic> _handle(Future<http.Response> Function() request) async {
-    final response = await request();
-    final data = response.body.isNotEmpty ? jsonDecode(response.body) : null;
+    try {
+      final response = await request().timeout(const Duration(seconds: 15));
+      final data = response.body.isNotEmpty ? jsonDecode(response.body) : null;
 
-    if (response.statusCode >= 200 && response.statusCode < 300) {
-      return data;
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return data;
+      }
+
+      final message = data is Map<String, dynamic>
+          ? (data['message'] ?? 'Request failed').toString()
+          : 'Request failed';
+      throw Exception(message);
+    } on TimeoutException {
+      throw Exception('Request timeout. Please check your backend/server.');
+    } on http.ClientException {
+      throw Exception(
+        'Cannot reach API at ${AppConfig.baseUrl}. Ensure backend and MongoDB are running.',
+      );
+    } on FormatException {
+      throw Exception('Invalid server response format.');
     }
-
-    final message = data is Map<String, dynamic>
-        ? (data['message'] ?? 'Request failed').toString()
-        : 'Request failed';
-    throw Exception(message);
   }
 }

@@ -1,3 +1,6 @@
+/// File: lib/core/providers/courses_provider.dart
+/// Purpose: Riverpod provider for fetching courses list.
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../features/auth/providers/auth_provider.dart';

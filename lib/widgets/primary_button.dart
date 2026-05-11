@@ -1,3 +1,6 @@
+/// File: lib/widgets/primary_button.dart
+/// Purpose: Primary themed button with rounded corners and full width.
+
 import 'package:flutter/material.dart';
 import '../utils/app_theme.dart';
 

@@ -1,3 +1,6 @@
+/// File: lib/widgets/pressable_card.dart
+/// Purpose: Interactive card with scale animation on tap.
+
 import 'package:flutter/material.dart';
 
 class PressableCard extends StatefulWidget {

@@ -1,3 +1,6 @@
+/// File: lib/widgets/attendance_bar.dart
+/// Purpose: Displays attendance percentage bar with visual indicator for low attendance.
+
 import 'package:flutter/material.dart';
 import '../utils/app_theme.dart';
 

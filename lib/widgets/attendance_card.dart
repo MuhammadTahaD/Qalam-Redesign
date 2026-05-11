@@ -1,3 +1,6 @@
+/// File: lib/widgets/attendance_card.dart
+/// Purpose: Card component showing course attendance percentage and remaining absences.
+
 import 'package:flutter/material.dart';
 import 'pressable_card.dart';
 import '../utils/app_theme.dart';

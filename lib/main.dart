@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'features/academics/screens/assignments_screen.dart';
+import 'features/academics/screens/gradebook_screen.dart';
+import 'features/academics/screens/quizzes_screen.dart';
+import 'features/admin/screens/admin_panel_screen.dart';
 import 'features/auth/providers/auth_provider.dart';
 import 'features/auth/screens/login_screen.dart';
 import 'features/auth/screens/register_screen.dart';
 import 'features/dashboard/screens/dashboard_screen.dart';
 import 'features/notifications/screens/notifications_screen.dart';
+import 'features/profile/screens/profile_screen.dart';
+import 'screens/attendance/attendance_screen.dart';
+import 'screens/results/results_screen.dart';
 import 'utils/app_theme.dart';
 
 void main() {
@@ -28,8 +35,6 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = ref.watch(authProvider);
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
@@ -38,10 +43,15 @@ class _MyAppState extends ConsumerState<MyApp> {
         '/register': (_) => const RegisterScreen(),
         '/dashboard': (_) => const DashboardScreen(),
         '/notifications': (_) => const NotificationsScreen(),
+        '/assignments': (_) => const AssignmentsScreen(),
+        '/quizzes': (_) => const QuizzesScreen(),
+        '/gradebook': (_) => const GradebookScreen(),
+        '/attendance': (_) => const AttendanceScreen(),
+        '/results': (_) => const ResultsScreen(),
+        '/profile': (_) => const ProfileScreen(),
+        '/admin-panel': (_) => const AdminPanelScreen(),
       },
-      home: auth.isAuthenticated
-          ? const DashboardScreen()
-          : const LoginScreen(),
+      home: const ProfileScreen(),
     );
   }
 }

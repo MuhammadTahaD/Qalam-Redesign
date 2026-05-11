@@ -1,11 +1,20 @@
+/// File: lib/widgets/gpa_card.dart
+/// Purpose: Card component displaying GPA title and numeric value.
+
 import 'package:flutter/material.dart';
 import '../utils/app_theme.dart';
 
 class GpaCard extends StatelessWidget {
   final String title;
   final double value;
+  final Color? valueColor;
 
-  const GpaCard({super.key, required this.title, required this.value});
+  const GpaCard({
+    super.key,
+    required this.title,
+    required this.value,
+    this.valueColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +40,10 @@ class GpaCard extends StatelessWidget {
 
           Text(
             value.toStringAsFixed(2),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: AppColors.primary,
+              color: valueColor ?? AppColors.primary,
             ),
           ),
         ],

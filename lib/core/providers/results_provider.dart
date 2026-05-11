@@ -1,3 +1,6 @@
+/// File: lib/core/providers/results_provider.dart
+/// Purpose: Riverpod provider for fetching academic results.
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../features/auth/providers/auth_provider.dart';

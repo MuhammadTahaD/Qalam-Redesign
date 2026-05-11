@@ -1,3 +1,6 @@
+/// File: lib/widgets/notification_tile.dart
+/// Purpose: List tile for displaying notification title, subtitle, and read status.
+
 import 'package:flutter/material.dart';
 import '../utils/app_theme.dart';
 

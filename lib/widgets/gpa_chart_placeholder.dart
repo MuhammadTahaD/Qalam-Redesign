@@ -1,3 +1,6 @@
+/// File: lib/widgets/gpa_chart_placeholder.dart
+/// Purpose: Placeholder bar chart visualization for GPA trends.
+
 import 'package:flutter/material.dart';
 import '../utils/app_theme.dart';
 

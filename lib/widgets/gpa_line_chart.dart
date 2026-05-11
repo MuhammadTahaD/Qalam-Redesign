@@ -1,3 +1,6 @@
+/// File: lib/widgets/gpa_line_chart.dart
+/// Purpose: Animated line chart component displaying GPA progression.
+
 import 'package:flutter/material.dart';
 import '../utils/app_theme.dart';
 

@@ -1,3 +1,6 @@
+/// File: lib/features/dashboard/screens/dashboard_screen.dart
+/// Purpose: Main dashboard showing courses, attendance, results, and recent notifications.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,7 +14,6 @@ import '../../../utils/app_theme.dart';
 import '../../../widgets/course_tile.dart';
 import '../../../widgets/gpa_card.dart';
 import '../../../widgets/notification_tile.dart';
-import '../../auth/providers/auth_provider.dart';
 import '../../notifications/providers/notification_provider.dart';
 import '../../profile/screens/profile_screen.dart';
 
@@ -45,7 +47,18 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       const ProfileScreen(),
     ];
 
+    final user = ref.watch(userProvider).valueOrNull;
+    final isInstructor = user?.isInstructor ?? false;
+
     return Scaffold(
+      appBar: AppBar(title: const Text('Student Portal')),
+      drawer: _AppDrawer(
+        isInstructor: isInstructor,
+        onOpen: (route) {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, route);
+        },
+      ),
       body: SafeArea(child: tabs[_index]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _index,
@@ -64,6 +77,84 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             label: 'Results',
           ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
+      ),
+    );
+  }
+}
+
+class _AppDrawer extends StatelessWidget {
+  final void Function(String route) onOpen;
+  final bool isInstructor;
+
+  const _AppDrawer({required this.onOpen, required this.isInstructor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(color: AppColors.secondary),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                'Navigate',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.dashboard_outlined),
+            title: const Text('Dashboard'),
+            onTap: () => Navigator.pop(context),
+          ),
+          ListTile(
+            leading: const Icon(Icons.assignment_outlined),
+            title: const Text('Assignments'),
+            onTap: () => onOpen('/assignments'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.quiz_outlined),
+            title: const Text('Quizzes'),
+            onTap: () => onOpen('/quizzes'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.book_outlined),
+            title: const Text('Gradebook'),
+            onTap: () => onOpen('/gradebook'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.fact_check_outlined),
+            title: const Text('Attendance'),
+            onTap: () => onOpen('/attendance'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.bar_chart_outlined),
+            title: const Text('Results'),
+            onTap: () => onOpen('/results'),
+          ),
+          if (isInstructor)
+            ListTile(
+              leading: const Icon(Icons.admin_panel_settings_outlined),
+              title: const Text('Instructor Panel'),
+              onTap: () => onOpen('/admin-panel'),
+            ),
+          ListTile(
+            leading: const Icon(Icons.notifications_outlined),
+            title: const Text('Notifications'),
+            onTap: () => onOpen('/notifications'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.person_outline),
+            title: const Text('Profile'),
+            onTap: () => onOpen('/profile'),
+          ),
         ],
       ),
     );
@@ -118,7 +209,7 @@ class _DashboardHome extends ConsumerWidget {
               'Hi, Student',
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
-            error: (_, __) => const Text(
+            error: (_, _) => const Text(
               'Hi, Student',
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
@@ -180,7 +271,9 @@ class _DashboardHome extends ConsumerWidget {
           const SizedBox(height: 8),
           coursesAsync.when(
             data: (courses) {
-              if (courses.isEmpty) return const Text('No active courses');
+              if (courses.isEmpty) {
+                return const Text('No active courses');
+              }
               return Column(
                 children: courses
                     .take(3)
@@ -193,7 +286,7 @@ class _DashboardHome extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(14),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.04),
+                              color: Colors.black.withValues(alpha: 0.04),
                               blurRadius: 8,
                             ),
                           ],
@@ -260,11 +353,6 @@ class _DashboardHome extends ConsumerWidget {
                     isRead: n.isRead,
                   ),
                 ),
-          const SizedBox(height: 12),
-          OutlinedButton(
-            onPressed: () => ref.read(authProvider.notifier).logout(),
-            child: const Text('Logout'),
-          ),
         ],
       ),
     );
